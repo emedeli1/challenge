@@ -13,7 +13,21 @@
 #include <sys/ai.hpp>
 
 void schedule(GuardComponent& g, Action decided) {
-   // ❂❂ Your code ❂❂
+   if (decided == g.action){
+    g.react_in = 0;
+    return; 
+    }
+
+   if (decided == Action::Patrol){
+    g.action = Action:: Patrol;
+    g.react_in = 0;
+    return;
+    }
+
+    if (g.react_in > 0 && g.pending ==decided){
+      return;
+    }
+    
    g.pending  = decided;
    g.react_in = std::max(1, g.traits.react);
 }
