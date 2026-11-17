@@ -1,0 +1,42 @@
+{
+   // F5 debugs the configuration chosen in Run and Debug (Ctrl+Shift+D) with the file
+   // open in the editor: the file of a case (ej01a.cpp...) or depura.cpp. Before, it
+   // builds it (tasks.json), without optimising and with debug information (-O0 -g)
+   "version": "0.2.0",
+   "configurations": [
+      {
+         "name": "Las pruebas del fichero abierto",
+         "type": "cppdbg",
+         "request": "launch",
+         "program": "${workspaceFolder}/build/debug/bin/prueba",
+         "args": [],
+         "cwd": "${workspaceFolder}",
+         "preLaunchTask": "Compilar las pruebas del fichero abierto",
+         "MIMode": "gdb",
+         "setupCommands": [
+            {
+               "description": "Show std::vector, std::optional... by their contents",
+               "text": "-enable-pretty-printing",
+               "ignoreFailures": true
+            }
+         ]
+      },
+      {
+         "name": "El juego con el fichero abierto",
+         "type": "cppdbg",
+         "request": "launch",
+         "program": "${workspaceFolder}/build/debug/con/arena",
+         "args": [ "2026" ],
+         "cwd": "${workspaceFolder}",
+         "preLaunchTask": "Compilar el juego con el fichero abierto",
+         "MIMode": "gdb",
+         "setupCommands": [
+            {
+               "description": "Show std::vector, std::optional... by their contents",
+               "text": "-enable-pretty-printing",
+               "ignoreFailures": true
+            }
+         ]
+      }
+   ]
+}

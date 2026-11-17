@@ -1,0 +1,22 @@
+{
+   // What is built before debugging (launch.json), with the file open in the editor
+   "version": "2.0.0",
+   "tasks": [
+      {
+         "label": "Compilar las pruebas del fichero abierto",
+         "type": "shell",
+         "command": "make",
+         "args": [ "prueba", "CASO=${fileBasenameNoExtension}" ],
+         "problemMatcher": "$gcc",
+         "group": "build"
+      },
+      {
+         "label": "Compilar el juego con el fichero abierto",
+         "type": "shell",
+         "command": "make",
+         "args": [ "juego", "CASO=${fileBasenameNoExtension}" ],
+         "problemMatcher": "$gcc",
+         "group": "build"
+      }
+   ]
+}
