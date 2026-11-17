@@ -19,8 +19,23 @@ SceneGame::sees(Entity const& guard, Vec2 target) const {
    Vec2 const& to{ target - guard.phy.pos};
    float const& dist{to.length()};
    
-   if(dist < station.cast<float>(g.sight)){ return false}
+   // FIX S1: Si el objetivo está demasiado cerca, no se ve.
+   // FIX F2: Se olvido de traits.sight, que es la distancia máxima a la que el guardia puede ver.
+   if(dist > static_cast<float>(g.traits.sight)){ return false; }
 
-   float const c{dist < 1.0f ? 1.0f : to.normalized().dot(g.)}
-   return false;
+   float const c{dist < 1.0f ? 1.0f : to.normalized().dot(g.facing)};
+
+   float cone2{g.traits.cone};
+   bool ahead {};
+
+   if (alarm_ > 0) {
+      cone2 = g.traits.cone * 2;
+      // FIX E3: 
+      ahead = c >= half_cone_cos(cone2);
+   }
+   else{
+      ahead = c >= half_cone_cos(g.traits.cone);
+   }
+  
+   return (ahead && line_of_sight(guard.phy.pos, target));
 }
