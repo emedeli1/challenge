@@ -18,4 +18,10 @@ void level_rows(Node const& n, TreePath const& path, std::size_t level
    bool const on_way{ parent_on_way && level < path.size
                       && path.steps[level].node == n.id() };
    // ❂❂ Your code ❂❂
+   bool const is_leaf {!n.yes()}; //FIX sintaxis yes()
+   rows.push_back({.node = &n, .branch=branch, .level=level, .on_way=on_way, .folded=(level==max_level && !is_leaf)}); //FIX sintaxis () y n.id
+   if (leaf || !on_way) { return; }
+   bool const answer{ path.steps[level].answer }; //FIX falta
+   level_rows(*n.yes(), path, level+1, "si", answer, max_level, rows); //FIX Error
+   level_rows(*n.no(), path, level+1, "no", answer, max_level, rows); //FIX falta
 }

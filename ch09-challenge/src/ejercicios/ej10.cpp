@@ -17,11 +17,21 @@
 
 Entity&
 EntityManager::new_entity(CmpMask cmp) {
-   // ❂❂ Your code ❂❂ (1)
-   return entities_[0];
+   for(int i = entities_.size() - 1; i >= 0; i--){ 
+      Entity& e = entities_[i];
+      if(e.cmp.empty()){ //FIX Ne.cmp no puede negarse, requiere la funcion empty
+         e = Entity{}; //FIX E la estructura de e no iba, se limpia e, y luego lo devuelve
+         e.cmp = cmp;
+         return e;
+      }
+   }
+   std::println(stderr, "No hay espacio disponible"); //FIX E stderr escrito de forma incorrecta
+   std::terminate();
+   return entities_[0]; //FIX return por defecto es correcto
 }
 
 void
 EntityManager::destroy_entity(Entity& e) {
-   // ❂❂ Your code ❂❂ (2)
+   e = Entity(); //FIX N Entity no tiene destructor
+   //FIX N no existe el operador == para Entity, por ende el for es inutil;
 }
