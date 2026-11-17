@@ -18,7 +18,23 @@ SceneGame::investigate(Entity& guard) {
    GuardComponent& g{ guard.guard };
    if (!g.has_clue) {
       guard.phy.vel = {};
-   // ❂❂ Your code ❂❂
+      return; 
+   }
+
+   if (g.search_for > 0) {
+      guard.phy.vel = {};
+      g.facing = turned(g.facing, TURN_STEP);
+      g.search_for -= 1;
+      if (g.search_for == 0) {
+         g.has_clue = false;
+      }
+   } else if ((g.clue - guard.phy.pos).length() <= ARRIVE_DIST) { //fix .length y estaban puestos en _ en vez de . los phy.pos
+      guard.phy.vel = {}; // FIX F2: 
+      if (alarm_ > 0) {
+         g.has_clue = false;
+      } else {
+         g.search_for = SEARCH_TICKS;
+      }
    } else {
       go_to(guard, g.clue, (alarm_ > 0 ? RUN : HURRY) * g.traits.walk);
    }
