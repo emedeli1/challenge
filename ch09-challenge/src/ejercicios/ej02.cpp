@@ -15,6 +15,6 @@
 
 Entity const*
 SceneGame::nearest_chaser(Entity const& guard) const {
-   // ❂❂ Your code ❂❂
+   
    return nullptr;
 }
